@@ -6,6 +6,8 @@ import {
   getContestants,
   getResult,
 } from './redux/action/ActionCreator';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LeagueView from './Components/LeagueView';
 
 class App extends Component {
   componentDidMount() {
@@ -15,9 +17,9 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <p>Assessment</p>
-      </div>
+      <Router>
+        <Route exact path="/league/:id" component={LeagueView} />
+      </Router>
     );
   }
 }
