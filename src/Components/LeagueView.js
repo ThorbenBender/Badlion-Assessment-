@@ -34,7 +34,9 @@ class LeagueView extends Component {
             'Do MMMM YYYY'
           )}
         </p>
-        <button class="sortButton">Date</button>
+        <button class="sortButton">
+          Date<i class="fa fa-angle-up"></i>
+        </button>
         <div class="results">
           {this.props.results.map((result, key) => (
             <div key={key} className="contestants">
