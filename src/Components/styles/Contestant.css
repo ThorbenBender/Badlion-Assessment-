@@ -1,0 +1,6 @@
+.contestant {
+  width: 23vw;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}

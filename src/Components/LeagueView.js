@@ -34,19 +34,33 @@ class LeagueView extends Component {
             'Do MMMM YYYY'
           )}
         </p>
-        <button>Date</button>
-        <div>
+        <button class="sortButton">Date</button>
+        <div class="results">
           {this.props.results.map((result, key) => (
-            <div key={key}>
-              <p>{moment(result.beginAt).format('h:mm')}</p>
-              {result.participants.map((contestantData, key) => (
+            <div key={key} className="contestants">
+              <p class="resultDate">{moment(result.beginAt).format('h:mm')}</p>
+              <div>
                 <Contestant
-                  key={key}
-                  points={contestantData.points[0]}
-                  id={contestantData.id}
+                  points={result.participants[0].points[0]}
+                  id={result.participants[0].id}
                   contestants={this.props.contestants}
+                  won={
+                    result.participants[0].points[0] >
+                    result.participants[1].points[0]
+                  }
                 />
-              ))}
+              </div>
+              <div>
+                <Contestant
+                  points={result.participants[1].points[0]}
+                  id={result.participants[1].id}
+                  contestants={this.props.contestants}
+                  won={
+                    result.participants[0].points[0] <
+                    result.participants[1].points[0]
+                  }
+                />
+              </div>
             </div>
           ))}
         </div>
