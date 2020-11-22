@@ -6,16 +6,12 @@ class Contestant extends Component {
     let contestant = this.props.contestants.filter(
       (contest) => contest.id === this.props.id
     )[0];
-    let borderStyle = this.props.won
-      ? { borderLeft: '#28B662 4px solid' }
-      : { borderLeft: 'red 4px solid' };
-    let pointStyle = this.props.won
-      ? { fontWeigtht: 'bolder' }
-      : { fontWeigtht: 'lighter' };
+    let borderStyle = this.props.won ? 'winnerBorder' : 'loserBorder';
+    let pointStyle = this.props.won ? 'winnerPoints' : 'loserPoints';
     return (
-      <div className="contestant" style={borderStyle}>
-        <p>{contestant.name}</p>
-        <p style={pointStyle}>{this.props.points}</p>
+      <div className="contestant" id={borderStyle}>
+        <p className="contestantName">{contestant.name}</p>
+        <p className={pointStyle}>{this.props.points}</p>
       </div>
     );
   }

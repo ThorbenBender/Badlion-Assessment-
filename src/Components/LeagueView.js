@@ -10,6 +10,8 @@ import { withRouter } from 'react-router-dom';
 import Contestant from './Contestant';
 import './styles/LeagueView.css';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 class LeagueView extends Component {
   componentDidMount() {
@@ -28,41 +30,40 @@ class LeagueView extends Component {
     }
     return (
       <div className="league">
-        <h2 className="leagueName">{this.props.league.name.full}</h2>
-        <p className="leagueDate">
-          {moment(this.props.league.timeline.signUp.begin).format(
-            'Do MMMM YYYY'
-          )}
-        </p>
-        <button class="sortButton">
-          Date<i class="fa fa-angle-up"></i>
-        </button>
+        <div className="leagueHeader">
+          <h2 className="leagueName">{this.props.league.name.full}</h2>
+          <p className="leagueDate">
+            {moment(this.props.league.timeline.signUp.begin).format(
+              'Do MMMM YYYY'
+            )}
+          </p>
+        </div>
         <div class="results">
+          <button class="sortButton">
+            Date
+            <FontAwesomeIcon className="arrow" icon={faAngleDown} />
+          </button>
           {this.props.results.map((result, key) => (
-            <div key={key} className="contestants">
+            <div key={key} className="result">
               <p class="resultDate">{moment(result.beginAt).format('h:mm')}</p>
-              <div>
-                <Contestant
-                  points={result.participants[0].points[0]}
-                  id={result.participants[0].id}
-                  contestants={this.props.contestants}
-                  won={
-                    result.participants[0].points[0] >
-                    result.participants[1].points[0]
-                  }
-                />
-              </div>
-              <div>
-                <Contestant
-                  points={result.participants[1].points[0]}
-                  id={result.participants[1].id}
-                  contestants={this.props.contestants}
-                  won={
-                    result.participants[0].points[0] <
-                    result.participants[1].points[0]
-                  }
-                />
-              </div>
+              <Contestant
+                points={result.participants[0].points[0]}
+                id={result.participants[0].id}
+                contestants={this.props.contestants}
+                won={
+                  result.participants[0].points[0] >
+                  result.participants[1].points[0]
+                }
+              />
+              <Contestant
+                points={result.participants[1].points[0]}
+                id={result.participants[1].id}
+                contestants={this.props.contestants}
+                won={
+                  result.participants[0].points[0] <
+                  result.participants[1].points[0]
+                }
+              />
             </div>
           ))}
         </div>
