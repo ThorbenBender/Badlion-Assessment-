@@ -9,6 +9,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import Contestant from './Contestant';
 import './styles/LeagueView.css';
+import moment from 'moment';
 
 class LeagueView extends Component {
   componentDidMount() {
@@ -28,12 +29,16 @@ class LeagueView extends Component {
     return (
       <div className="league">
         <h2 className="leagueName">{this.props.league.name.full}</h2>
-        <p className="leagueDate">{this.props.league.timeline.signUp.begin}</p>
+        <p className="leagueDate">
+          {moment(this.props.league.timeline.signUp.begin).format(
+            'Do MMMM YYYY'
+          )}
+        </p>
         <button>Date</button>
         <div>
           {this.props.results.map((result, key) => (
             <div key={key}>
-              <p>{result.beginAt}</p>
+              <p>{moment(result.beginAt).format('h:mm')}</p>
               {result.participants.map((contestantData, key) => (
                 <Contestant
                   key={key}
