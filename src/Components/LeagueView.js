@@ -8,6 +8,7 @@ import {
 } from '../redux/action/ActionCreator';
 import { withRouter } from 'react-router-dom';
 import Contestant from './Contestant';
+import './styles/LeagueView.css';
 
 class LeagueView extends Component {
   componentDidMount() {
@@ -25,7 +26,7 @@ class LeagueView extends Component {
       return <p>Loading...</p>;
     }
     return (
-      <div>
+      <div class="league">
         <h2>{this.props.league.name.full}</h2>
         <p>{this.props.league.timeline.signUp.begin}</p>
         <div>
