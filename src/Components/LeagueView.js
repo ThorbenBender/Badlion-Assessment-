@@ -26,9 +26,10 @@ class LeagueView extends Component {
       return <p>Loading...</p>;
     }
     return (
-      <div class="league">
-        <h2>{this.props.league.name.full}</h2>
-        <p>{this.props.league.timeline.signUp.begin}</p>
+      <div className="league">
+        <h2 className="leagueName">{this.props.league.name.full}</h2>
+        <p className="leagueDate">{this.props.league.timeline.signUp.begin}</p>
+        <button>Date</button>
         <div>
           {this.props.results.map((result, key) => (
             <div key={key}>
