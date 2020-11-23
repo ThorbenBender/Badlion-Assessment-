@@ -5,10 +5,15 @@ import {
   getLeague,
   getContestants,
   getResults,
+  sortResultsByNew,
+  sortResultsByOld,
 } from '../redux/action/ActionCreator';
 import { withRouter } from 'react-router-dom';
 import Contestant from './Contestant';
 import './styles/LeagueView.css';
+import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 class LeagueView extends Component {
   componentDidMount() {
@@ -16,6 +21,19 @@ class LeagueView extends Component {
     this.props.getResults(this.props.match.params.id);
     this.props.getContestants(this.props.match.params.id);
   }
+
+  state = {
+    arrowDown: false,
+  };
+
+  sortResults = () => {
+    if (!this.state.arrowDown) {
+      this.props.sortResultsByNew();
+    } else {
+      this.props.sortResultsByOld();
+    }
+    this.setState((st) => ({ arrowDown: !st.arrowDown }));
+  };
 
   render() {
     if (
@@ -26,21 +44,44 @@ class LeagueView extends Component {
       return <p>Loading...</p>;
     }
     return (
-      <div class="league">
-        <h2>{this.props.league.name.full}</h2>
-        <p>{this.props.league.timeline.signUp.begin}</p>
-        <div>
+      <div className="league">
+        <div className="leagueHeader">
+          <h2 className="leagueName">{this.props.league.name.full}</h2>
+          <p className="leagueDate">
+            {moment(this.props.league.timeline.signUp.begin).format(
+              'Do MMMM YYYY'
+            )}
+          </p>
+        </div>
+        <div className="results">
+          <button class="sortButton" onClick={this.sortResults}>
+            Date
+            <FontAwesomeIcon
+              className="arrow"
+              icon={this.state.arrowDown ? faCaretDown : faCaretUp}
+            />
+          </button>
           {this.props.results.map((result, key) => (
-            <div key={key}>
-              <p>{result.beginAt}</p>
-              {result.participants.map((contestantData, key) => (
-                <Contestant
-                  key={key}
-                  points={contestantData.points[0]}
-                  id={contestantData.id}
-                  contestants={this.props.contestants}
-                />
-              ))}
+            <div key={key} className="result">
+              <p class="resultDate">{moment(result.beginAt).format('h:mm')}</p>
+              <Contestant
+                points={result.participants[0].points[0]}
+                id={result.participants[0].id}
+                contestants={this.props.contestants}
+                won={
+                  result.participants[0].points[0] >
+                  result.participants[1].points[0]
+                }
+              />
+              <Contestant
+                points={result.participants[1].points[0]}
+                id={result.participants[1].id}
+                contestants={this.props.contestants}
+                won={
+                  result.participants[0].points[0] <
+                  result.participants[1].points[0]
+                }
+              />
             </div>
           ))}
         </div>
@@ -63,6 +104,8 @@ function mapDispatchToProps(dispatch) {
       getLeague,
       getResults,
       getContestants,
+      sortResultsByNew,
+      sortResultsByOld,
     },
     dispatch
   );

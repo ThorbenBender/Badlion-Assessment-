@@ -1,0 +1,36 @@
+.contestant {
+  width: 94%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2%;
+  padding-left: 2%;
+  border-radius: 2px;
+  margin-left: 2%;
+}
+
+.contestantName {
+  font-size: 1.25rem;
+  font-weight: lighter;
+}
+
+.contestantPoints {
+  font-size: 1.25rem;
+}
+
+#winnerBorder {
+  border-left: #28b662 4px solid;
+}
+
+#loserBorder {
+  border-left: red 4px solid;
+}
+
+.winnerPoints {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.loserPoints {
+  font-size: 1.25rem;
+  font-weight: 100;
+}
