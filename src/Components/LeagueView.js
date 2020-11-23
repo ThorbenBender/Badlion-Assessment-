@@ -5,13 +5,15 @@ import {
   getLeague,
   getContestants,
   getResults,
+  sortResultsByNew,
+  sortResultsByOld,
 } from '../redux/action/ActionCreator';
 import { withRouter } from 'react-router-dom';
 import Contestant from './Contestant';
 import './styles/LeagueView.css';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 class LeagueView extends Component {
   componentDidMount() {
@@ -19,6 +21,19 @@ class LeagueView extends Component {
     this.props.getResults(this.props.match.params.id);
     this.props.getContestants(this.props.match.params.id);
   }
+
+  state = {
+    arrowDown: false,
+  };
+
+  sortResults = () => {
+    if (!this.state.arrowDown) {
+      this.props.sortResultsByNew();
+    } else {
+      this.props.sortResultsByOld();
+    }
+    this.setState((st) => ({ arrowDown: !st.arrowDown }));
+  };
 
   render() {
     if (
@@ -39,9 +54,12 @@ class LeagueView extends Component {
           </p>
         </div>
         <div class="results">
-          <button class="sortButton">
+          <button class="sortButton" onClick={this.sortResults}>
             Date
-            <FontAwesomeIcon className="arrow" icon={faAngleDown} />
+            <FontAwesomeIcon
+              className="arrow"
+              icon={this.state.arrowDown ? faCaretDown : faCaretUp}
+            />
           </button>
           {this.props.results.map((result, key) => (
             <div key={key} className="result">
@@ -86,6 +104,8 @@ function mapDispatchToProps(dispatch) {
       getLeague,
       getResults,
       getContestants,
+      sortResultsByNew,
+      sortResultsByOld,
     },
     dispatch
   );

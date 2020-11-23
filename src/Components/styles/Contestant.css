@@ -26,9 +26,11 @@
 }
 
 .winnerPoints {
+  font-size: 1.25rem;
   font-weight: 800;
 }
 
 .loserPoints {
+  font-size: 1.25rem;
   font-weight: 100;
 }
