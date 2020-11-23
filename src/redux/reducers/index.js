@@ -28,12 +28,12 @@ export function results(state = intitialState.results, action) {
       return action.payload;
     case SORT_BY_NEW:
       let newState = state.sort((x, y) => {
-        return new Date(x.beginAt) - new Date(y.beginAt);
+        return new Date(y.beginAt) - new Date(x.beginAt);
       });
       return newState;
     case SORT_BY_OLD:
       let otherState = state.sort((x, y) => {
-        return new Date(y.beginAt) - new Date(x.beginAt);
+        return new Date(x.beginAt) - new Date(y.beginAt);
       });
       return otherState;
     default:
