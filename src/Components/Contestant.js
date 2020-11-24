@@ -10,7 +10,9 @@ class Contestant extends Component {
     let pointStyle = this.props.won ? 'winnerPoints' : 'loserPoints';
     return (
       <div className="contestant" id={borderStyle}>
-        <p className="contestantName">{contestant.name}</p>
+        <p className="contestantName">
+          {contestant ? contestant.name : 'Unknown'}
+        </p>
         <p className={pointStyle}>{this.props.points}</p>
       </div>
     );

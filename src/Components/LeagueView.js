@@ -36,57 +36,61 @@ class LeagueView extends Component {
   };
 
   render() {
+    console.log(this.props.contestants.length);
     if (
       Object.keys(this.props.league).length === 0 &&
       Object.keys(this.props.results).length === 0 &&
-      this.props.contestants.length === 0
+      this.props.contestants.length === undefined
     ) {
       return <p>Loading...</p>;
+    } else {
+      return (
+        <div className="league">
+          <div className="leagueHeader">
+            <h2 className="leagueName">{this.props.league.name.full}</h2>
+            <p className="leagueDate">
+              {moment(this.props.league.timeline.signUp.begin).format(
+                'Do MMMM YYYY'
+              )}
+            </p>
+          </div>
+          <div className="results">
+            <button className="sortButton" onClick={this.sortResults}>
+              Date
+              <FontAwesomeIcon
+                className="arrow"
+                icon={this.state.arrowDown ? faCaretDown : faCaretUp}
+              />
+            </button>
+            {this.props.results.map((result, key) => (
+              <div key={key} className="result">
+                <p class="resultDate">
+                  {moment(result.beginAt).format('h:mm')}
+                </p>
+                <Contestant
+                  points={result.participants[0].points[0]}
+                  id={result.participants[0].id}
+                  contestants={this.props.contestants}
+                  won={
+                    result.participants[0].points[0] >
+                    result.participants[1].points[0]
+                  }
+                />
+                <Contestant
+                  points={result.participants[1].points[0]}
+                  id={result.participants[1].id}
+                  contestants={this.props.contestants}
+                  won={
+                    result.participants[0].points[0] <
+                    result.participants[1].points[0]
+                  }
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
     }
-    return (
-      <div className="league">
-        <div className="leagueHeader">
-          <h2 className="leagueName">{this.props.league.name.full}</h2>
-          <p className="leagueDate">
-            {moment(this.props.league.timeline.signUp.begin).format(
-              'Do MMMM YYYY'
-            )}
-          </p>
-        </div>
-        <div className="results">
-          <button class="sortButton" onClick={this.sortResults}>
-            Date
-            <FontAwesomeIcon
-              className="arrow"
-              icon={this.state.arrowDown ? faCaretDown : faCaretUp}
-            />
-          </button>
-          {this.props.results.map((result, key) => (
-            <div key={key} className="result">
-              <p class="resultDate">{moment(result.beginAt).format('h:mm')}</p>
-              <Contestant
-                points={result.participants[0].points[0]}
-                id={result.participants[0].id}
-                contestants={this.props.contestants}
-                won={
-                  result.participants[0].points[0] >
-                  result.participants[1].points[0]
-                }
-              />
-              <Contestant
-                points={result.participants[1].points[0]}
-                id={result.participants[1].id}
-                contestants={this.props.contestants}
-                won={
-                  result.participants[0].points[0] <
-                  result.participants[1].points[0]
-                }
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
   }
 }
 

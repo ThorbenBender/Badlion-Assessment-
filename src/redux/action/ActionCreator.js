@@ -7,21 +7,24 @@ import {
 } from './ActionType';
 import axios from 'axios';
 
-const API_URL = 'https://api.eslgaming.com/play/v1';
+const API_URL = 'https://badlion-assessment.herokuapp.com';
 
 export const getLeague = (id) => async (dispatch) => {
   let result = await axios.get(`${API_URL}/leagues/${id}`);
-  dispatch({ type: GET_LEAGUE, payload: result.data });
+  let data = JSON.parse(result.data);
+  dispatch({ type: GET_LEAGUE, payload: data });
 };
 
 export const getResults = (id) => async (dispatch) => {
   let result = await axios.get(`${API_URL}/leagues/${id}/results`);
-  dispatch({ type: GET_RESULTS, payload: result.data });
+  let data = JSON.parse(result.data);
+  dispatch({ type: GET_RESULTS, payload: data });
 };
 
 export const getContestants = (id) => async (dispatch) => {
   let result = await axios.get(`${API_URL}/leagues/${id}/contestants`);
-  dispatch({ type: GET_CONTESTANTS, payload: result.data });
+  let data = JSON.parse(result.data);
+  dispatch({ type: GET_CONTESTANTS, payload: data });
 };
 
 export const sortResultsByNew = () => (dispatch) => {
