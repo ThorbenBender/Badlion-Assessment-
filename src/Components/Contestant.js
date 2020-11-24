@@ -3,6 +3,7 @@ import './styles/Contestant.css';
 
 class Contestant extends Component {
   render() {
+    console.log(this.props);
     let contestant = this.props.contestants.filter(
       (contest) => contest.id === this.props.id
     )[0];
@@ -10,7 +11,9 @@ class Contestant extends Component {
     let pointStyle = this.props.won ? 'winnerPoints' : 'loserPoints';
     return (
       <div className="contestant" id={borderStyle}>
-        <p className="contestantName">{contestant.name}</p>
+        <p className="contestantName">
+          {contestant ? contestant.name : 'Unknown'}
+        </p>
         <p className={pointStyle}>{this.props.points}</p>
       </div>
     );
