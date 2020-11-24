@@ -55,7 +55,7 @@ class LeagueView extends Component {
             </p>
           </div>
           <div className="results">
-            <button class="sortButton" onClick={this.sortResults}>
+            <button className="sortButton" onClick={this.sortResults}>
               Date
               <FontAwesomeIcon
                 className="arrow"

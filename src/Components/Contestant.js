@@ -3,7 +3,6 @@ import './styles/Contestant.css';
 
 class Contestant extends Component {
   render() {
-    console.log(this.props);
     let contestant = this.props.contestants.filter(
       (contest) => contest.id === this.props.id
     )[0];
